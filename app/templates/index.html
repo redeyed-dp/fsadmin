@@ -1,0 +1,18 @@
+{% extends "template.html" %}
+{% block app_content %}
+
+<div class="row-fluid">
+    <div class="col-12 p-4">
+    {% for sm in mm %}
+        {{ sm }}
+        <hr>
+        {% for i in mm[sm] %}
+            <a class="btn btn-light col-2" role="button" href="{{ url_for( mm[sm][i]['link'] ) }}">
+                <img src="{{ url_for('static', filename='img/'+mm[sm][i]['icon']) }}"><br>
+                {{ mm[sm][i]['name'] }}
+            </a>
+        {% endfor %}
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

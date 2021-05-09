@@ -1,0 +1,44 @@
+{% extends "template.html" %}
+{% block app_content %}
+<div class="row-fluid">
+    <div class="col-12 p-4">
+        <a class="btn btn-sm btn-light" href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='img/back.png') }}"> Назад
+        </a>
+        <a class="btn btn-sm btn-light" href="{{ url_for('proftpd.groups_add') }}">
+            <img src="{{ url_for('static', filename='img/add.png') }}"> Создать группу
+        </a>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="col-12 p-4">
+        <table class="table table-sm table-hover border border-dark">
+            <thead class="thead-dark">
+                <tr>
+                    <th> Группа </th>
+                    <th> GID </th>
+                    <th> Члены группы </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            {% for group in groups %}
+            <tbody>
+                <tr>
+                    <td>{{ group.groupname }}</td>
+                    <td>{{ group.gid }}</td>
+                    <td>{{ group.members }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-light" href="{{ url_for('proftpd.groups_del', gid=group.gid) }}" onclick='return confirm("Удалить группу {{ group.groupname }} ?")'>
+                            <img src="{{ url_for('static', filename='img/delete.png') }}" title="Удалить">
+                        </a>
+                        <a class="btn btn-sm btn-light" href="{{ url_for('proftpd.groups_edit', gid=group.gid) }}">
+                            <img src="{{ url_for('static', filename='img/edit.png') }}" title="Редактировать">
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
