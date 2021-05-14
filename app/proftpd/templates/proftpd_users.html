@@ -30,7 +30,8 @@
                     <td>{{ user.gid }}</td>
                     <td>{{ user.homedir }}</td>
                     <td>
-                        <a class="btn btn-sm btn-light" href="{{ url_for('proftpd.users_del', userid=user.userid) }}" onclick='return confirm("Удалить аккаунт {{ user.userid }} ?")'>
+                        <a class="btn btn-sm btn-light" href="{{ url_for('proftpd.users_del', userid=user.userid) }}"
+                           onclick='return confirm("Удалить аккаунт {{ user.userid }} ?")'>
                             <img src="{{ url_for('static', filename='img/delete.png') }}" title="Удалить">
                         </a>
                         <a class="btn btn-sm btn-light" href="{{ url_for('proftpd.users_edit', userid=user.userid) }}">

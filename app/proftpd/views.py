@@ -3,8 +3,10 @@ from app.proftpd import bp
 from app.proftpd.models import Users, Groups
 from app.proftpd.forms import UserForm, GroupForm
 from sqlalchemy.sql import func
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request, jsonify
 from flask_login import login_required
+from os import listdir, path
+import random
 
 @bp.route("/")
 @bp.route("/users")
@@ -138,3 +140,26 @@ def groups_edit(gid):
     form.groupname.data = group.groupname
     form.members.data = group.members
     return render_template("proftpd_group_edit.html", form=form)
+
+@bp.route("/randompassword")
+@login_required
+def randompassword():
+    password=str()
+    for i in range(0,10):
+        password+=str(random.randrange(10))
+    return password
+
+@bp.route("/homedir", methods=['POST'])
+@login_required
+def homedir():
+    directories = []
+    directory = request.form['homedir']
+    exists = True
+    if not path.isdir(directory):
+        exists = False
+        directory = '/'
+    names = listdir(directory)
+    for name in names:
+        if path.isdir(path.join(directory, name)):
+            directories.append(name)
+    return jsonify({'exists': exists, 'parent': directory, 'directories': directories})

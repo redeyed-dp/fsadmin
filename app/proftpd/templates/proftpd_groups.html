@@ -28,7 +28,8 @@
                     <td>{{ group.gid }}</td>
                     <td>{{ group.members }}</td>
                     <td>
-                        <a class="btn btn-sm btn-light" href="{{ url_for('proftpd.groups_del', gid=group.gid) }}" onclick='return confirm("Удалить группу {{ group.groupname }} ?")'>
+                        <a class="btn btn-sm btn-light" href="{{ url_for('proftpd.groups_del', gid=group.gid) }}"
+                           onclick='return confirm("Удалить группу {{ group.groupname }} ?")'>
                             <img src="{{ url_for('static', filename='img/delete.png') }}" title="Удалить">
                         </a>
                         <a class="btn btn-sm btn-light" href="{{ url_for('proftpd.groups_edit', gid=group.gid) }}">
